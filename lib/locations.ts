@@ -53,18 +53,33 @@ export const arrondissements: Arrondissement[] = [
 ]
 
 /**
- * Quartiers (par nom, voir demoQuartiers) rattachés à chaque arrondissement
- * de Douala — répartition indicative basée sur la géographie usuelle de la
- * ville, à corriger si besoin depuis /admin/parametres plus tard.
+ * Quartiers (par nom, voir demoQuartiers) rattachés à chaque arrondissement.
+ * Douala a une vraie répartition par quartier ; Yaoundé et Bafoussam n'ont
+ * pour l'instant qu'une couverture au niveau de l'arrondissement lui-même
+ * (pas de découpage plus fin vérifié) — chaque arrondissement y est donc
+ * son propre "quartier" en attendant une couverture plus précise.
  */
-export const DOUALA_ARRONDISSEMENT_QUARTIERS: Record<string, string[]> = {
+export const ARRONDISSEMENT_QUARTIERS: Record<string, string[]> = {
   "douala-1": ["Akwa", "Bonanjo", "Bonapriso", "Deïdo", "Bali"],
   "douala-2": ["New Bell", "Bepanda"],
   "douala-3": ["Logbaba", "Ndogbong", "Yassa", "PK8", "PK9", "PK10", "PK11", "PK12", "PK13", "PK14"],
   "douala-4": [],
   "douala-5": ["Kotto", "Makepe", "Bonamoussadi", "Ndokoti", "Logpom", "Cité des Palmiers"],
+  "yaounde-1": ["Yaoundé 1er"],
+  "yaounde-2": ["Yaoundé 2e"],
+  "yaounde-3": ["Yaoundé 3e"],
+  "yaounde-4": ["Yaoundé 4e"],
+  "yaounde-5": ["Yaoundé 5e"],
+  "yaounde-6": ["Yaoundé 6e"],
+  "yaounde-7": ["Yaoundé 7e"],
+  "bafoussam-centre": ["Bafoussam"],
 }
 
 export function arrondissementsForVille(villeId: string): Arrondissement[] {
   return arrondissements.filter((a) => a.villeId === villeId)
+}
+
+/** Noms de quartiers couverts par une ville (toutes ses arrondissements confondus). */
+export function quartierNamesForVille(villeId: string): string[] {
+  return arrondissementsForVille(villeId).flatMap((a) => ARRONDISSEMENT_QUARTIERS[a.id] ?? [])
 }

@@ -5,28 +5,15 @@ import { AgentCard } from "@/components/konexa/agent-card"
 import { ServiceCategoryLinks } from "@/components/konexa/service-category-links"
 import { HeroVisual } from "@/components/konexa/hero-visual"
 import { Reveal } from "@/components/konexa/reveal"
+import { RegionAgentsExplorer } from "@/components/konexa/region-agents-explorer"
 import { demoReviews } from "@/lib/demo-data"
 import { getPublicAgents } from "@/lib/queries/agents"
-import { cn } from "@/lib/utils"
 
 const STEPS = [
   { number: "01", title: "Choisissez", text: "Ménagère, nounou ou agent d'entretien — un clic depuis l'accueil." },
   { number: "02", title: "Réservez", text: "Un agent précis, ou une demande sur mesure sous 48h." },
   { number: "03", title: "Payez", text: "MTN MoMo ou Orange Money, reçu digital immédiat." },
   { number: "04", title: "Suivez", text: "Avis, signalement, garantie de remplacement 30 jours." },
-]
-
-const REGIONS = [
-  { name: "Littoral", active: true },
-  { name: "Centre", active: false },
-  { name: "Ouest", active: false },
-  { name: "Nord-Ouest", active: false },
-  { name: "Sud-Ouest", active: false },
-  { name: "Adamaoua", active: false },
-  { name: "Est", active: false },
-  { name: "Extrême-Nord", active: false },
-  { name: "Nord", active: false },
-  { name: "Sud", active: false },
 ]
 
 export default async function HomePage() {
@@ -185,32 +172,7 @@ export default async function HomePage() {
               </div>
             )}
 
-            <div className="mt-10 border-t border-white/5 pt-8">
-              <p className="text-sm font-medium text-foreground/70">
-                Régions du Cameroun
-              </p>
-              <div className="mt-3 flex flex-wrap gap-2">
-                {REGIONS.map((region) => (
-                  <span
-                    key={region.name}
-                    className={cn(
-                      "rounded-sm border px-3 py-1.5 text-sm",
-                      region.active
-                        ? "border-verified/40 bg-verified/10 text-verified"
-                        : "border-white/10 bg-white/5 text-muted-foreground"
-                    )}
-                  >
-                    {region.name}
-                    {!region.active && <span className="ml-1.5 text-xs opacity-70">Bientôt</span>}
-                  </span>
-                ))}
-              </div>
-              <p className="mt-3 text-xs text-muted-foreground">
-                KONEXA vérifie ses agents en personne, région par région —
-                actif à Douala (Littoral), en cours d&rsquo;extension ailleurs
-                au Cameroun.
-              </p>
-            </div>
+            <RegionAgentsExplorer agents={agents} />
           </Reveal>
         </div>
       </section>
@@ -222,8 +184,8 @@ export default async function HomePage() {
             <h2 className="font-heading text-2xl font-semibold tracking-tight">
               Ce que disent les familles
             </h2>
-            <div className="mt-6 grid gap-6 sm:grid-cols-2">
-              {demoReviews.slice(0, 2).map((review) => (
+            <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {demoReviews.slice(0, 6).map((review) => (
                 <blockquote key={review.id} className="rounded-md border border-border bg-card p-5">
                   <p className="text-foreground/85">&ldquo;{review.comment}&rdquo;</p>
                   <footer className="mt-3 text-sm text-muted-foreground">

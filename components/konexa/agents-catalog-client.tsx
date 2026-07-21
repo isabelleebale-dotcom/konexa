@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react"
 import { AgentCard } from "@/components/konexa/agent-card"
 import { demoQuartiers, serviceLabels } from "@/lib/demo-data"
-import { villes, arrondissementsForVille, DOUALA_ARRONDISSEMENT_QUARTIERS } from "@/lib/locations"
+import { villes, arrondissementsForVille, ARRONDISSEMENT_QUARTIERS } from "@/lib/locations"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import type { AgentPublic } from "@/lib/supabase/types"
@@ -32,7 +32,7 @@ export function AgentsCatalogClient({
 
   const arrondissementOptions = villeId !== "all" ? arrondissementsForVille(villeId) : []
   const quartierNames =
-    arrondissementId !== "all" ? DOUALA_ARRONDISSEMENT_QUARTIERS[arrondissementId] ?? [] : []
+    arrondissementId !== "all" ? ARRONDISSEMENT_QUARTIERS[arrondissementId] ?? [] : []
   const quartierOptions =
     quartierNames.length > 0
       ? demoQuartiers.filter((q) => quartierNames.includes(q.name))

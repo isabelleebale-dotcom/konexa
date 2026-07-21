@@ -16,7 +16,7 @@ import { demoQuartiers } from "@/lib/demo-data"
 import {
   villes,
   arrondissementsForVille,
-  DOUALA_ARRONDISSEMENT_QUARTIERS,
+  ARRONDISSEMENT_QUARTIERS,
 } from "@/lib/locations"
 
 /** Id du quartier générique "Autre" — voir lib/demo-data.ts. */
@@ -43,7 +43,7 @@ export function LocationPicker(props: SingleProps | MultiProps) {
   const [arrondissementId, setArrondissementId] = useState("")
 
   const arrondissementOptions = villeId ? arrondissementsForVille(villeId) : []
-  const quartierNames = DOUALA_ARRONDISSEMENT_QUARTIERS[arrondissementId] ?? []
+  const quartierNames = ARRONDISSEMENT_QUARTIERS[arrondissementId] ?? []
   const quartiersInArrondissement = demoQuartiers.filter((q) => quartierNames.includes(q.name))
   const hasQuartiers = arrondissementId !== "" && quartiersInArrondissement.length > 0
 
