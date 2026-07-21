@@ -3,7 +3,12 @@
 import { useMemo, useState } from "react"
 import { AgentCard } from "@/components/konexa/agent-card"
 import { demoQuartiers, serviceLabels } from "@/lib/demo-data"
-import { villes, arrondissementsForVille, ARRONDISSEMENT_QUARTIERS } from "@/lib/locations"
+import {
+  villes,
+  arrondissementsForVille,
+  ARRONDISSEMENT_QUARTIERS,
+  quartierNamesForVille,
+} from "@/lib/locations"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import type { AgentPublic } from "@/lib/supabase/types"
@@ -31,11 +36,17 @@ export function AgentsCatalogClient({
   const [availableOnly, setAvailableOnly] = useState(false)
 
   const arrondissementOptions = villeId !== "all" ? arrondissementsForVille(villeId) : []
-  const quartierNames =
-    arrondissementId !== "all" ? ARRONDISSEMENT_QUARTIERS[arrondissementId] ?? [] : []
+  // Quartiers couverts par le niveau de localisation le plus précis choisi :
+  // arrondissement s'il est sélectionné, sinon toute la ville.
+  const locationQuartierNames =
+    arrondissementId !== "all"
+      ? ARRONDISSEMENT_QUARTIERS[arrondissementId] ?? []
+      : villeId !== "all"
+        ? quartierNamesForVille(villeId)
+        : []
   const quartierOptions =
-    quartierNames.length > 0
-      ? demoQuartiers.filter((q) => quartierNames.includes(q.name))
+    locationQuartierNames.length > 0
+      ? demoQuartiers.filter((q) => locationQuartierNames.includes(q.name))
       : demoQuartiers
 
   const filtered = useMemo(() => {
@@ -43,16 +54,16 @@ export function AgentsCatalogClient({
       if (service !== "all" && agent.service_type !== service) return false
       if (quartierId !== "all") {
         if (!agent.quartier_ids.includes(quartierId)) return false
-      } else if (arrondissementId !== "all" && quartierNames.length > 0) {
-        const agentQuartierNamesInArr = demoQuartiers
+      } else if (locationQuartierNames.length > 0) {
+        const agentQuartierNamesInLocation = demoQuartiers
           .filter((q) => agent.quartier_ids.includes(q.id))
-          .some((q) => quartierNames.includes(q.name))
-        if (!agentQuartierNamesInArr) return false
+          .some((q) => locationQuartierNames.includes(q.name))
+        if (!agentQuartierNamesInLocation) return false
       }
       if (availableOnly && !agent.availability) return false
       return true
     })
-  }, [agents, service, quartierId, arrondissementId, quartierNames, availableOnly])
+  }, [agents, service, quartierId, locationQuartierNames, availableOnly])
 
   return (
     <>
