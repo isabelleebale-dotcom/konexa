@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button"
 import { TrustBadge } from "@/components/konexa/verified-badge"
 import { AgentCard } from "@/components/konexa/agent-card"
 import { ServiceCategoryLinks } from "@/components/konexa/service-category-links"
-import { HeroVisual } from "@/components/konexa/hero-visual"
 import { Reveal } from "@/components/konexa/reveal"
 import { RegionAgentsExplorer } from "@/components/konexa/region-agents-explorer"
 import { demoReviews } from "@/lib/demo-data"
@@ -42,12 +41,12 @@ export default async function HomePage() {
           aria-hidden="true"
         />
 
-        <div className="relative mx-auto grid max-w-6xl gap-12 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-8">
+        <div className="relative mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
           <Reveal>
             <p className="text-sm font-medium uppercase tracking-wide text-[#C4B5FD]">
               Douala
             </p>
-            <h1 className="mt-3 font-heading text-4xl font-semibold leading-[1.1] tracking-tight text-white sm:text-5xl">
+            <h1 className="mt-3 max-w-3xl font-heading text-4xl font-semibold leading-[1.1] tracking-tight text-white sm:text-5xl">
               Ménagères, nounous et agents d&rsquo;entretien{" "}
               <em className="not-italic text-[#A78BFA]">vérifiés</em>, dans
               votre quartier.
@@ -63,8 +62,8 @@ export default async function HomePage() {
               <p className="text-sm font-medium text-white/70">
                 Je cherche du personnel de confiance pour&hellip;
               </p>
-              <div className="mt-3">
-                <ServiceCategoryLinks dark />
+              <div className="mt-4">
+                <ServiceCategoryLinks dark large />
               </div>
               <p className="mt-5 text-sm text-white/60">
                 Vous cherchez un emploi plutôt qu&rsquo;un agent ?{" "}
@@ -74,10 +73,6 @@ export default async function HomePage() {
                 .
               </p>
             </div>
-          </Reveal>
-
-          <Reveal delay={150} className="hidden lg:block">
-            <HeroVisual dark />
           </Reveal>
         </div>
       </section>

@@ -72,9 +72,9 @@ function CategoryPhotoSlideshow({ photos, label }: { photos: readonly string[]; 
   )
 }
 
-export function ServiceCategoryLinks({ dark }: { dark?: boolean }) {
+export function ServiceCategoryLinks({ dark, large }: { dark?: boolean; large?: boolean }) {
   return (
-    <div className="grid gap-3 sm:grid-cols-3">
+    <div className={cn("grid gap-4 sm:grid-cols-3", large && "gap-5")}>
       {CATEGORIES.map((cat) => {
         const Icon = cat.icon
         return (
@@ -88,19 +88,34 @@ export function ServiceCategoryLinks({ dark }: { dark?: boolean }) {
                 : "border-border bg-card hover:border-primary/50"
             )}
           >
-            <div className="relative aspect-[4/3] w-full overflow-hidden">
+            <div
+              className={cn(
+                "relative w-full overflow-hidden",
+                large ? "aspect-[4/3.4] sm:aspect-square" : "aspect-[4/3]"
+              )}
+            >
               <CategoryPhotoSlideshow photos={cat.photos} label={cat.label} />
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-              <span className="pointer-events-none absolute left-3 top-3 flex size-9 items-center justify-center rounded-sm bg-[#7C3AED]/80 text-white backdrop-blur-sm">
-                <Icon className="size-4" aria-hidden="true" />
+              <span
+                className={cn(
+                  "pointer-events-none absolute flex items-center justify-center rounded-sm bg-[#7C3AED]/80 text-white backdrop-blur-sm",
+                  large ? "left-4 top-4 size-11" : "left-3 top-3 size-9"
+                )}
+              >
+                <Icon className={large ? "size-5" : "size-4"} aria-hidden="true" />
               </span>
-              <p className="pointer-events-none absolute bottom-3 left-3 font-heading text-lg font-semibold text-white">
+              <p
+                className={cn(
+                  "pointer-events-none absolute bottom-4 left-4 font-heading font-semibold text-white",
+                  large ? "text-2xl" : "text-lg"
+                )}
+              >
                 {cat.label}
               </p>
             </div>
 
-            <div className="flex items-center justify-between gap-2 p-4">
-              <p className={cn("text-sm", dark ? "text-white/65" : "text-foreground/70")}>
+            <div className={cn("flex items-center justify-between gap-2", large ? "p-5" : "p-4")}>
+              <p className={cn(large ? "text-base" : "text-sm", dark ? "text-white/65" : "text-foreground/70")}>
                 {cat.description}
               </p>
               <ArrowRight
