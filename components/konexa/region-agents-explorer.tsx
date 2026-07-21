@@ -2,12 +2,14 @@
 
 import { useMemo, useState } from "react"
 import { AgentCard } from "@/components/konexa/agent-card"
-import { demoQuartiers } from "@/lib/demo-data"
+import { demoQuartiers, serviceLabels } from "@/lib/demo-data"
 import { villes, quartierNamesForVille } from "@/lib/locations"
 import { cn } from "@/lib/utils"
 import type { AgentPublic } from "@/lib/supabase/types"
 
 const ACTIVE_REGIONS = ["Littoral", "Centre", "Ouest"]
+
+const SERVICE_ORDER: AgentPublic["service_type"][] = ["menagere", "nounou", "agent_entretien"]
 
 export function RegionAgentsExplorer({ agents }: { agents: AgentPublic[] }) {
   const [selectedRegion, setSelectedRegion] = useState<string | null>(null)
@@ -69,10 +71,23 @@ export function RegionAgentsExplorer({ agents }: { agents: AgentPublic[] }) {
               Pas encore d&rsquo;agent disponible dans cette zone — revenez bientôt.
             </p>
           ) : (
-            <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {filteredAgents.map((agent) => (
-                <AgentCard key={agent.id} agent={agent} />
-              ))}
+            <div className="mt-4 space-y-8">
+              {SERVICE_ORDER.map((service) => {
+                const group = filteredAgents.filter((a) => a.service_type === service)
+                if (group.length === 0) return null
+                return (
+                  <div key={service}>
+                    <p className="text-xs font-semibold uppercase tracking-wide text-foreground/60">
+                      {serviceLabels[service]} ({group.length})
+                    </p>
+                    <div className="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                      {group.map((agent) => (
+                        <AgentCard key={agent.id} agent={agent} />
+                      ))}
+                    </div>
+                  </div>
+                )
+              })}
             </div>
           )}
         </div>
