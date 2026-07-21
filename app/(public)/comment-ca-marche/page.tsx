@@ -24,12 +24,6 @@ const steps = [
   },
 ]
 
-const tarifs = [
-  { service: "Ménagère", frais: "30 000 FCFA", commission: "10 % du salaire mensuel" },
-  { service: "Nounou", frais: "50 000 FCFA", commission: "10 % du salaire mensuel" },
-  { service: "Agent d'entretien (entreprise)", frais: "40 000 FCFA / agent", commission: "10 % du salaire mensuel" },
-]
-
 export default function HowItWorksPage() {
   return (
     <div className="mx-auto max-w-4xl px-4 py-14 sm:px-6">
@@ -52,36 +46,7 @@ export default function HowItWorksPage() {
         ))}
       </div>
 
-      <h2 className="mt-16 font-heading text-2xl font-semibold tracking-tight">
-        Tarifs
-      </h2>
-      <div className="mt-5 overflow-x-auto rounded-md border border-border">
-        <table className="w-full text-left text-sm">
-          <thead className="bg-secondary/40">
-            <tr>
-              <th className="px-4 py-3 font-medium">Service</th>
-              <th className="px-4 py-3 font-medium">Frais de placement</th>
-              <th className="px-4 py-3 font-medium">Commission mensuelle</th>
-            </tr>
-          </thead>
-          <tbody>
-            {tarifs.map((t) => (
-              <tr key={t.service} className="border-t border-border">
-                <td className="px-4 py-3">{t.service}</td>
-                <td className="px-4 py-3">{t.frais}</td>
-                <td className="px-4 py-3">{t.commission}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <p className="mt-3 text-xs text-muted-foreground">
-        Le salaire de l&rsquo;agent est versé directement par le client — KONEXA
-        ne facture que les frais de placement et la commission de suivi.
-        Inscription 100&nbsp;% gratuite pour les agents, aucune retenue sur salaire.
-      </p>
-
-      <div className="mt-14 rounded-md border border-border bg-card p-8 text-center">
+      <div className="mt-16 rounded-md border border-border bg-card p-8 text-center">
         <p className="font-heading text-xl font-semibold">
           Prêt à trouver la bonne personne ?
         </p>
