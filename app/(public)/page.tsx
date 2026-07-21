@@ -155,19 +155,22 @@ export default async function HomePage() {
                 Voir tout le catalogue →
               </Link>
             </div>
-            {featuredAgents.length === 0 ? (
-              <p className="mt-6 text-sm text-muted-foreground">
-                Les premiers agents sont en cours de vérification — revenez très bientôt.
-              </p>
-            ) : (
-              <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {featuredAgents.map((agent) => (
-                  <AgentCard key={agent.id} agent={agent} />
-                ))}
-              </div>
-            )}
-
             <RegionAgentsExplorer agents={agents} />
+
+            <div className="mt-10 border-t border-white/5 pt-8">
+              <p className="text-sm font-medium text-foreground/70">Aperçu du catalogue</p>
+              {featuredAgents.length === 0 ? (
+                <p className="mt-3 text-sm text-muted-foreground">
+                  Les premiers agents sont en cours de vérification — revenez très bientôt.
+                </p>
+              ) : (
+                <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                  {featuredAgents.map((agent) => (
+                    <AgentCard key={agent.id} agent={agent} />
+                  ))}
+                </div>
+              )}
+            </div>
           </Reveal>
         </div>
       </section>

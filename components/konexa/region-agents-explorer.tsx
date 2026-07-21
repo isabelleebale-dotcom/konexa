@@ -24,7 +24,7 @@ export function RegionAgentsExplorer({ agents }: { agents: AgentPublic[] }) {
   }, [agents, selectedVille])
 
   return (
-    <div className="mt-10 border-t border-white/5 pt-8">
+    <div className="mt-6">
       <p className="text-sm font-medium text-foreground/70">Régions du Cameroun</p>
       <div className="mt-3 flex flex-wrap gap-2">
         {villes.map((ville) => {
